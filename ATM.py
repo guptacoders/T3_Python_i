@@ -1,82 +1,91 @@
-class ATM:
+class Atm:
     def __init__(self):
-        self.pin=None
-        self.balance=0
-    
+        self.pin = None
+        self.balance = 0
+
     def main(self):
-        book_list = []  # List to store book objects
         while True:
-            choice = input("1) Create Pin \n 2)Change Pin \n 3)Check Balance \n 4)Withdraw \n 5)Deposit \n 6)Exit")
-            if choice == '1':
-                create_pin()
-            elif choice == '2':
-                change_pin()
-            elif choice == '3':
-                check_bal()
-            elif choice=='4':
-                withdraw()
-            elif choice=='5':
-                deposit()
-            elif choice=='6':
-                print("Exiting the program.")
+            print("""
+            1) Create Pin
+            2) Change Pin
+            3) Check Balance
+            4) Withdraw
+            5) Deposit
+            6) Exit
+            """)
+            choice = int(input("Enter Your Choice: "))
+            if choice == 1:
+                self.create_pin()
+            elif choice == 2:
+                self.change_pin()
+            elif choice == 3:
+                self.check_balance()
+            elif choice == 4:
+                self.withdraw()
+            elif choice == 5:
+                self.deposit()
+            elif choice == 6:
+                print("Exiting to ATM")
                 break
             else:
-                print("Invalid choice, please try again.")
+                print("Invalid choice, Please try again!")
 
-    def create_pin():
+    def create_pin(self):
         if self.pin is not None:
-            print("Pin is already created")
+            print("Pin is already created.")
         else:
-            self.pin=input("Create Your PIN: ")
-            print("PIN created succesfully")
+            self.pin = input("Create your PIN: ")
+            print("Pin created successfully!")
 
-    def change_pin():
-        if self.pin is not None:
-            print("No PIN set")
+    def change_pin(self):
+        if self.pin is None:
+            print("No PIN set. Please create a PIN first.")
         else:
-            current_pin=input("Enter Your Current Pin: ")
-            if current_pin==self.pin:
-                new_pin=input("Enter New Pin: ")
-                self.pin=new_pin
-                print("PIN Changed Succesfully")
+            current_pin = input("Enter your current PIN: ")
+            if current_pin == self.pin:
+                new_pin = input("Enter your new PIN: ")
+                self.pin = new_pin
+                print("Pin changed successfully!")
             else:
-                print("Your Current pin is Wrong !!!!!!!")
+                print("Incorrect PIN!")
 
-    def check_bal():
-        if self.pin is not None:
-            print("No PIN set")
+    def check_balance(self):
+        if self.pin is None:
+            print("Please set a PIN first.")
         else:
-            current_pin=input("Enter Your Current Pin: ")
-            if current_pin==self.pin:
-                print("Your Current Balance is: ",self.balance)
+            pin_input = input("Enter your PIN to check balance: ")
+            if pin_input == self.pin:
+                print(f"Your current balance is:{self.balance}")
             else:
-                print("Entered Pin is Incorrect !!!!!!!")
+                print("Incorrect PIN!")
 
-    def withdraw():
-        if self.pin is not None:
-            print("No PIN set")
+    def withdraw(self):
+        if self.pin is None:
+            print("Please set a PIN first.")
         else:
-            current_pin=input("Enter Your Current Pin: ")
-            if current_pin==self.pin:
-                amount=float(input("Enter Amount to Withdraw: "))
-                if amount>self.balace:
-                    print("Insufficient Balance !!!!")
+            pin_input = input("Enter your PIN to withdraw: ")
+            if pin_input == self.pin:
+                amount = float(input("Enter amount to withdraw: $"))
+                if amount > self.balance:
+                    print("Insufficient balance!")
                 else:
-                    self.balance-=amount
-                    print(amount," Withdrwal Successfully")
-                    print("Your Updated Balance is: ",self.balance)
+                    self.balance -= amount
+                    print(f"Successfully withdrew {amount}. Your new balance is: {self.balance}")
+            else:
+                print("Incorrect PIN!")
 
     def deposit(self):
-            if self.pin is None:
-                print("Please set a PIN first.")
+        if self.pin is None:
+            print("Please set a PIN first.")
+        else:
+            pin_input = input("Enter your PIN to deposit: ")
+            if pin_input == self.pin:
+                amount = float(input("Enter amount to deposit: $"))
+                self.balance += amount
+                print(f"Successfully deposited {amount}. Your new balance is: {self.balance}")
             else:
-                pin_input = input("Enter your PIN to deposit: ")
-                if pin_input == self.pin:
-                    amount = float(input("Enter amount to deposit: $"))
-                    self.balance += amount
-                    print(f"Successfully deposited {amount}. Your new balance is: {self.balance}")
-                else:
-                    print("Incorrect PIN!")
-                
-atm =ATM()
+                print("Incorrect PIN!")
+
+# Create an instance of the ATM class and run the main method
+atm = Atm()
 atm.main()
